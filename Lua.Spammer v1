@@ -1,1 +1,213 @@
 
+-- [[ 🥶TvX Spammer - Presets Without Symbol Edition 🥶 ]] --
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local TextChatService = game:GetService("TextChatService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Purana GUI delete karo safely
+pcall(function()
+    if PlayerGui:FindFirstChild("TvXForcedGUI") then
+        PlayerGui.TvXForcedGUI:Destroy()
+    end
+end)
+
+-- ScreenGui Setup
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "TvXForcedGUI"
+ScreenGui.Parent = PlayerGui
+ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Universal Chat Function
+local function sendChatMessage(msg)
+    pcall(function()
+        if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+            local generalChannel = TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+            if generalChannel then
+                generalChannel:SendAsync(msg)
+                return
+            end
+        end
+    end)
+    
+    pcall(function()
+        local chatEvents = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents")
+        if chatEvents then
+            local sayRequest = chatEvents:FindFirstChild("SayMessageRequest")
+            if sayRequest then
+                sayRequest:FireServer(msg, "All")
+                return
+            end
+        end
+    end)
+end
+
+-- Execute hote hi custom loaded message
+task.spawn(function()
+    task.wait(1.5)
+    sendChatMessage("@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@TvX Spammer Loaded By Kian PaPa")
+end)
+
+-- Notification Box
+local Notif = Instance.new("TextLabel", ScreenGui)
+Notif.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+Notif.Position = UDim2.new(0.5, -150, 0.1, 0)
+Notif.Size = UDim2.new(0, 300, 0, 40)
+Notif.Font = Enum.Font.GothamBold
+Notif.Text = "⚡ TvX Spammer Loaded Successfully! ⚡"
+Notif.TextColor3 = Color3.fromRGB(0, 255, 100)
+Notif.TextSize = 13
+Instance.new("UICorner", Notif).CornerRadius = UDim.new(0, 8)
+
+-- Main Spammer Window (Rectangle)
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
+MainFrame.Position = UDim2.new(0.5, -210, 0.5, -150)
+MainFrame.Size = UDim2.new(0, 420, 0, 300)
+MainFrame.Active = true
+MainFrame.Draggable = true
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 14)
+
+local Stroke = Instance.new("UIStroke", MainFrame)
+Stroke.Thickness = 2.5
+Stroke.Color = Color3.fromRGB(255, 185, 0)
+
+-- Title
+local Title = Instance.new("TextLabel", MainFrame)
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 10)
+Title.Size = UDim2.new(1, 0, 0, 25)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "👑 🥶TvX papa ka Spammer🥶 ⚡"
+Title.TextColor3 = Color3.fromRGB(255, 185, 0)
+Title.TextSize = 14
+Title.TextXAlignment = Enum.TextXAlignment.Center
+
+-- Close Button (Top Right Corner)
+local CloseBtn = Instance.new("TextButton", MainFrame)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
+CloseBtn.Position = UDim2.new(1, -35, 0, 10)
+CloseBtn.Size = UDim2.new(0, 25, 0, 25)
+CloseBtn.Font = Enum.Font.GothamBold
+CloseBtn.Text = "X"
+CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.TextSize = 13
+Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 6)
+
+CloseBtn.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+end)
+
+-- Helper function for inputs
+local function createBox(posX, posY, placeholder, defaultText)
+    local box = Instance.new("TextBox", MainFrame)
+    box.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+    box.Position = UDim2.new(posX, 0, 0, posY)
+    box.Size = UDim2.new(0.43, 0, 0, 35)
+    box.Font = Enum.Font.GothamMedium
+    box.PlaceholderText = placeholder
+    box.Text = defaultText
+    box.TextColor3 = Color3.fromRGB(255, 255, 255)
+    box.TextSize = 12
+    Instance.new("UICorner", box).CornerRadius = UDim.new(0, 8)
+    return box
+end
+
+local TargetBox = createBox(0.06, 45, "Target...", "TMX")
+local SymbolBox = createBox(0.51, 45, "Symbol...", "@")
+local CountBox = createBox(0.06, 88, "Count...", "1-150")
+local SpeedBox = createBox(0.51, 88, "Speed...", "0.8")
+
+-- Start & Stop Buttons
+local StartBtn = Instance.new("TextButton", MainFrame)
+StartBtn.BackgroundColor3 = Color3.fromRGB(20, 160, 50)
+StartBtn.Position = UDim2.new(0.06, 0, 0, 140)
+StartBtn.Size = UDim2.new(0.43, 0, 0, 45)
+StartBtn.Font = Enum.Font.GothamBold
+StartBtn.Text = "▶ START"
+StartBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+StartBtn.TextSize = 14
+Instance.new("UICorner", StartBtn).CornerRadius = UDim.new(0, 8)
+
+local StopBtn = Instance.new("TextButton", MainFrame)
+StopBtn.BackgroundColor3 = Color3.fromRGB(140, 25, 30)
+StopBtn.Position = UDim2.new(0.51, 0, 0, 140)
+StopBtn.Size = UDim2.new(0.43, 0, 0, 45)
+StopBtn.Font = Enum.Font.GothamBold
+StopBtn.Text = "■ STOP"
+StopBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+StopBtn.TextSize = 14
+Instance.new("UICorner", StopBtn).CornerRadius = UDim.new(0, 8)
+
+-- Status
+local Status = Instance.new("TextLabel", MainFrame)
+Status.BackgroundTransparency = 1
+Status.Position = UDim2.new(0, 0, 0, 205)
+Status.Size = UDim2.new(1, 0, 0, 25)
+Status.Font = Enum.Font.GothamBold
+Status.Text = "● STATUS: READY | BY TvX ⚡"
+Status.TextColor3 = Color3.fromRGB(255, 185, 0)
+Status.TextSize = 11
+
+-- Remove notification after 3 seconds
+task.spawn(function()
+    task.wait(3)
+    pcall(function() Notif:Destroy() end)
+end)
+
+-- Spammer Loop Logic
+getgenv().FullSpammerRunning = false
+
+StartBtn.MouseButton1Click:Connect(function()
+    if getgenv().FullSpammerRunning then return end
+    getgenv().FullSpammerRunning = true
+    
+    Status.Text = "● STATUS: RUNNING"
+    Status.TextColor3 = Color3.fromRGB(50, 255, 50)
+    
+    task.spawn(function()
+        local idx = 1
+        
+        while getgenv().FullSpammerRunning do
+            local speedVal = tonumber(SpeedBox.Text) or 0.8
+            local targetVal = TargetBox.Text ~= "" and TargetBox.Text or "TMX"
+            
+            -- Local Presets without symbolVal prefix inside table
+            local LocalPresets = {
+                "@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@[" .. targetVal .. "]TMX MARE 🥶TvX PAPA🥶",
+                "@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@[" .. targetVal .. "]TMX MARE STARLIGHT METEOR BLAZE",
+                "@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@[" .. targetVal .. "]TMX MARE SOLARIS PYRO FROST",
+                "@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@@=@[" .. targetVal .. "] TMX MARE COSMIC WAVE TORNADO"
+            }
+            
+            local finalMsg = LocalPresets[idx]
+            sendChatMessage(finalMsg)
+            
+            idx = (idx % #LocalPresets) + 1
+            task.wait(speedVal)
+        end
+    end)
+end)
+
+StopBtn.MouseButton1Click:Connect(function()
+    getgenv().FullSpammerRunning = false
+    Status.Text = "● STATUS: STOPPED"
+    Status.TextColor3 = Color3.fromRGB(220, 40, 40)
+end)
+
+-- Toggle Button (TvX)
+local ToggleBtn = Instance.new("TextButton", ScreenGui)
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 32)
+ToggleBtn.Position = UDim2.new(0, 15, 0.5, -25)
+ToggleBtn.Size = UDim2.new(0, 55, 0, 50)
+ToggleBtn.Font = Enum.Font.GothamBold
+ToggleBtn.Text = "TvX"
+ToggleBtn.TextColor3 = Color3.fromRGB(255, 185, 0)
+ToggleBtn.TextSize = 18
+Instance.new("UICorner", ToggleBtn).CornerRadius = UDim.new(0, 10)
+
+ToggleBtn.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+end)
